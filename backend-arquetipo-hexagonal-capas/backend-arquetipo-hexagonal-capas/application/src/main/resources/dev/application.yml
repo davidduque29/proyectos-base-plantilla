@@ -1,0 +1,31 @@
+#endpoints:
+#  enabled: false
+info:
+  component: backend-arquetipo
+spring:
+  application:
+    name: backend-arquetipo
+  profiles:
+    active: dev
+  datasource:
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: secret
+  jpa:
+    databasePlatform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+server:
+  servlet:
+    context-path: "/backend-arquetipo"
+  port: 8080
+
+resilience4j:
+  retry:
+    instances:
+      pruebaRetry:
+        maxAttempts: 3
+        waitDuration: 1s
+        enableExponentialBackoff: true
+        exponentialBackoffMultiplier: 2
+        retryExceptions:
+          - java.lang.Throwable
